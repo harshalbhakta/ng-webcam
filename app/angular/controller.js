@@ -2,11 +2,37 @@
   angular.module('webcam').controller('webcamController', webcamController);
   webcamController.$inject = ['$scope', '$log'];
   function webcamController($scope, $log) {
+
+    Webcam.set({
+      flip_horiz: true,
+
+      // live preview size
+      // width: 400,
+      // height: 300,
+      
+      // device capture size
+      // dest_width: 677,
+      // dest_height: 500,
+      
+      // final cropped size
+      crop_width: 500,
+      crop_height: 500,
+      
+      // format and quality
+      image_format: 'jpeg',
+      jpeg_quality: 90
+    });
+
     /* jshint validthis: true */
     var vm = this;
     vm.config = {
-      delay: 2,
-      shots: 3,
+      delay: 0,
+      shots: 1,
+      countdown: 0,
+      viewerWidth: 400,
+      viewerHeight: 300,
+      outputWidth: 667,
+      outputHeight: 500,
       flashFallbackUrl: 'vendors/webcamjs/webcam.swf',
       shutterUrl: 'shutter.mp3',
       flashNotDetectedText: 'Seu browser não atende os requisitos mínimos para utilização da camera. ' +
@@ -23,8 +49,8 @@
       var el = document.getElementById('result');
       var img = document.createElement('img');
       img.src = src[vm.config.shots-1];
-      img.width = 240;
-      img.height = 180;
+      img.width = 300;
+      img.height = 300;
       el.appendChild(img);
     };
     vm.onError = function(err) {
@@ -48,8 +74,8 @@
       var el = document.getElementById('result');
       var img = document.createElement('img');
       img.src = src;
-      img.width = 240;
-      img.height = 180;
+      img.width = 667;
+      img.height = 500;
       el.appendChild(img);
       $log.info('webcamController.onCaptureProgress : ', result);
     };

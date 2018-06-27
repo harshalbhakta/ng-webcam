@@ -203,7 +203,7 @@
       }
 
       function onWebcamCapture() {
-        if(angular.isUndefined(vm.config.countdown)) {
+        if(vm.config.countdown === 0) {
           var count = 0;
           snapshotTimer = $interval(function() {
             capture(count);
